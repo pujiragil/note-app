@@ -17,21 +17,21 @@ export const FormCreateButton = ({onToggle}) => {
   return <button className="form--button" onClick={onToggle}><BsPlusSquare className="form__icon--button"/></button>
 }
 
-export const FormBodyWrapper = () => {
+export const FormBodyWrapper = ({notes}) => {
   return (
     <div className="form__body--wrapper">
-      <FormCount/>
-      <FormCount/>
-      <FormCount/>
+      <FormCount notes={0} text="Archive"/>
+      <FormCount notes={notes} text="Notes"/>
+      <FormCount notes={notes} text="Unarchive"/>
     </div>
   )
 }
 
-const FormCount = () => {
+const FormCount = ({ notes, text }) => {
   return (
     <div className="form__count">
-      <p className="num">5</p>
-      <p className="status">Note</p>
+      <p className="num">{notes}</p>
+      <p className="status">{text}</p>
     </div>
   )
 }

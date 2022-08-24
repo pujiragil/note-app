@@ -1,11 +1,11 @@
 import { FormBodyWrapper, FormHeaderWrapper, FormNote } from "./FormElements"
 import "./Form.css"
 
-const Form = ({onToggle}) => {
+const Form = ({onToggle, notes}) => {
   return (
     <div className="form">
       <FormHeaderWrapper onToggle={onToggle}/>
-      <FormBodyWrapper/>
+      <FormBodyWrapper notes={notes}/>
       <FormNote/>
     </div>
   )

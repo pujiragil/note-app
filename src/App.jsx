@@ -29,8 +29,10 @@ class App extends Component {
   }
 
   titleHandler(e) {
-    const { value } = e.target
-    this.setState({ title: value })
+    if(e.target.value.length > 50) {
+      e.target.value = this.state.title.slice(0, 50)
+    }
+    this.setState({ title: e.target.value })
   }
 
   bodyHandler(e) {
@@ -68,7 +70,7 @@ class App extends Component {
     return (
       <div className="container">
         <Navbar />
-        <Form onToggle={this.setToggle} toggle={this.state.toggle} />
+        <Form onToggle={this.setToggle} notes={this.state.notes.length}/>
         {this.state.toggle && <FormModal onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
         <Note notes={this.state.notes} onDelete={this.deleteNoteHandler}/>
       </div>
