@@ -1,0 +1,132 @@
+.form__modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(19, 19, 19, 0.8);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__modal--wrapper {
+  width: 100%;
+  min-height: 50%;
+  border-radius: 20px;
+  background-color: white;
+  z-index: 10;
+  color: black;
+  padding: 2rem;
+}
+
+.form__warning {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: salmon;
+}
+
+.form__field {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form__label {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #131313;
+}
+
+.form__label::after {
+  content: '*';
+  color: rgba(255, 0, 0, 0.582);
+  margin-left: 5px;
+}
+
+.form__input {
+  font-size: .8rem;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid #131313;
+  outline: none;
+}
+
+#note__title {
+  height: 40px;
+  padding: 0 20px;
+}
+
+#note__content {
+  height: 180px;
+  padding: 20px;
+}
+
+.form__button--wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.form__button {
+  flex: 1;
+  padding: 8px 18px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cancel {
+  background: salmon;
+  color: white;
+  transition: all .2s ease-in-out;
+}
+
+.cancel:hover {
+  background: rgb(255, 96, 78);
+  transition: all .2s ease-in-out;
+}
+
+.create {
+  background: yellowgreen;
+  color: white;
+}
+
+.create:hover {
+  background: rgb(128, 189, 7);
+  transition: all .2s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+  .form__modal--wrapper {
+    width: 70%;
+    height: fit-content;
+    min-height: 0;
+  }
+
+  .form__input {
+    font-size: 1rem;
+  }
+
+  .form__button {
+    font-size: 1rem;
+    padding: 10px 30px;
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .form__modal--wrapper {
+    width: 500px;
+    height: fit-content;
+  }
+}
