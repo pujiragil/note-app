@@ -20,7 +20,7 @@ const Note = ({ menu, notes, onDelete, onArchive }) => {
         archiveNotes.length > 0 ? (
           <NoteList>
             {archiveNotes.map(note => (
-              <NoteItem key={note.id} note={note} onDelete={onDelete} onArchive={onArchive} />
+              <NoteItem key={note.id} note={note} onDelete={onDelete} onArchive={onArchive} menu={menu}/>
             ))}
           </NoteList>
         ) : (

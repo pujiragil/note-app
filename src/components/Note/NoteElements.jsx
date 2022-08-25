@@ -8,11 +8,11 @@ export const NoteList = ({children }) => {
   )
 }
 
-export const NoteItem = ({ note, onDelete, onArchive }) => {
+export const NoteItem = ({ note, onDelete, onArchive, menu }) => {
   return (
     <div className="note__item">
       <NoteContent {...note} />
-      <NoteButtonWrap id={note.id} note={note} onDelete={onDelete} onArchive={onArchive} />
+      <NoteButtonWrap id={note.id} note={note} onDelete={onDelete} onArchive={onArchive} menu={menu} />
     </div>
   )
 }
@@ -28,11 +28,11 @@ const NoteContent = ({ title, createdAt, body }) => {
   )
 }
 
-const NoteButtonWrap = ({ id, note, onDelete, onArchive }) => {
+const NoteButtonWrap = ({ id, note, onDelete, onArchive, menu }) => {
   return (
     <div className="note__button--wrapper">
       <DeleteButton id={id} onDelete={onDelete} />
-      <ArchieveButton note={note} onArchive={onArchive} />
+      <ArchieveButton note={note} onArchive={onArchive} menu={menu} />
     </div>
   )
 }
@@ -42,5 +42,8 @@ const DeleteButton = ({ id, onDelete }) => {
 }
 
 const ArchieveButton = ({ note, onArchive }) => {
+  if(note.archived) {
+    return <button onClick={() => { onArchive(note) }} className="note__button archive">Unarchive</button>
+  }
   return <button onClick={() => { onArchive(note) }} className="note__button archive">Archive</button>
 }
