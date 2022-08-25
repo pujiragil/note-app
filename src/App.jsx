@@ -101,7 +101,7 @@ class App extends Component {
       <div className="container">
         <Navbar onSearch={this.setSearch}/>
         <Form onToggle={this.setToggle} notes={this.state.notes}/>
-        {this.state.toggle && <FormModal onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
+        {this.state.toggle && <FormModal length={this.state.title.length} onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
         <Menu onMenu={this.setMenu}/>
         <Note menu={this.state.menu} notes={filtered} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler}/>
       </div>
