@@ -12,6 +12,7 @@ class App extends Component {
       search: null,
       notes: getInitialData(),
       title: '',
+      max: 50,
       body: '',
       message: null
     }
@@ -19,6 +20,7 @@ class App extends Component {
     this.setMenu = this.setMenu.bind(this)
     this.setSearch = this.setSearch.bind(this)
     this.titleHandler = this.titleHandler.bind(this)
+    this.titleLengthHandler = this.titleLengthHandler.bind(this)
     this.bodyHandler = this.bodyHandler.bind(this)
     this.createNoteHandler = this.createNoteHandler.bind(this)
     this.deleteNoteHandler = this.deleteNoteHandler.bind(this)
@@ -44,10 +46,16 @@ class App extends Component {
   }
 
   titleHandler(e) {
-    if(e.target.value.length > 50) {
+    if (e.target.value.length > 50) {
       e.target.value = this.state.title.slice(0, 50)
     }
     this.setState({ title: e.target.value })
+    this.titleLengthHandler()
+  }
+
+  titleLengthHandler() {
+    const max = 50 - this.state.title.length
+    this.setState({ max })
   }
 
   bodyHandler(e) {
@@ -57,19 +65,21 @@ class App extends Component {
 
   createNoteHandler(e) {
     e.preventDefault()
-    if(this.state.title.length === 0 || this.state.body.length === 0) return this.setState({ message: 'Data tidak boleh kosong' })
+    if (this.state.title.length === 0 || this.state.body.length === 0) return this.setState({ message: 'Data tidak boleh kosong' })
     this.setState((prevState) => (
-      { notes: [
-        ...prevState.notes, 
-        { 
-          id: +new Date(),
-          title: this.state.title,
-          body: this.state.body,
-          createdAt: new Date().toISOString(),
-          archived: false
-        }],
+      {
+        notes: [
+          ...prevState.notes,
+          {
+            id: +new Date(),
+            title: this.state.title,
+            body: this.state.body,
+            createdAt: new Date().toISOString(),
+            archived: false
+          }],
         toggle: false,
-        message: null
+        message: null,
+        max: 50
       }
     ))
   }
@@ -80,30 +90,30 @@ class App extends Component {
       notes
     })
   }
-  
+
   archiveNoteHandler(note) {
-    const {notes} = this.state
+    const { notes } = this.state
     const updatedNote = {
       ...note,
       archived: note.archived ? false : true
     }
     const noteIndex = notes.findIndex((current) => current.id === note.id)
-    
+
     const updatedNotes = [...notes]
     updatedNotes[noteIndex] = updatedNote
 
     this.setState({ notes: updatedNotes })
-  } 
+  }
 
   render() {
     const filtered = !this.state.search ? this.state.notes : this.state.notes.filter(note => note.title.toLocaleLowerCase().includes(this.state.search.toLocaleLowerCase()))
     return (
       <div className="container">
-        <Navbar onSearch={this.setSearch}/>
-        <Form onToggle={this.setToggle} notes={this.state.notes}/>
-        {this.state.toggle && <FormModal length={this.state.title.length} onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
-        <Menu onMenu={this.setMenu}/>
-        <Note menu={this.state.menu} notes={filtered} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler}/>
+        <Navbar onSearch={this.setSearch} />
+        <Form onToggle={this.setToggle} notes={this.state.notes} />
+        {this.state.toggle && <FormModal length={this.state.max} onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message} />}
+        <Menu onMenu={this.setMenu} />
+        <Note menu={this.state.menu} notes={filtered} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler} />
       </div>
     )
   }

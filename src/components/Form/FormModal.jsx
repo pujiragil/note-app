@@ -30,7 +30,7 @@ const Field = ({ length, textarea, titleHandler, bodyHandler }) => {
       <div className="form__field">
         <div className="label--wrapper">
           <label htmlFor="note__title" className="form__label">Title</label >
-          <p className="note__label">Max length: {50 - length}</p>
+          <p className="note__label">Max length: {length}</p>
         </div>
         <input onChange={titleHandler} type="text" name="note__title" id="note__title" className="form__input" placeholder="your note title..." />
       </div >
