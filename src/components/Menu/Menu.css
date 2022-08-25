@@ -1,0 +1,60 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: transparent;
+}
+
+.menu--wrapper {
+  border-radius: 10px;
+  border: 1px solid white;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu__button {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.menu__button:first-child {
+  background: transparent;
+  border: 1px solid yellow;
+  color: yellow;
+  transition: all .2s ease-in-out;
+}
+
+.menu__button:last-child {
+  background: transparent;
+  border: 1px solid yellowgreen;
+  color: yellowgreen;
+  transition: all .2s ease-in-out;
+}
+
+.menu__button:first-child:hover {
+  background: rgb(212, 212, 0);
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu__button:last-child:hover {
+  background: yellowgreen;
+  color: white;
+  transition: all .2s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+  .menu--wrapper {
+    width: 50%;
+  }
+}

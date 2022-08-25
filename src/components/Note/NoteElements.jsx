@@ -1,25 +1,23 @@
 import { showFormattedDate } from "../../utils"
 
-export const NoteList = ({ notes, onDelete }) => {
+export const NoteList = ({children }) => {
   return (
     <div className="note__list">
-      {notes.map(note => (
-        <NoteItem key={note.id} note={note} onDelete={onDelete}/>
-      ))}
+      {children}
     </div>
   )
 }
 
-const NoteItem = ({ note, onDelete }) => {
+export const NoteItem = ({ note, onDelete, onArchive }) => {
   return (
-      <div className="note__item">
-        <NoteContent {...note} />
-        <NoteButtonWrap id={note.id} onDelete={onDelete}/>
-      </div>
+    <div className="note__item">
+      <NoteContent {...note} />
+      <NoteButtonWrap id={note.id} note={note} onDelete={onDelete} onArchive={onArchive} />
+    </div>
   )
 }
 
-const NoteContent = ({title, createdAt, body}) => {
+const NoteContent = ({ title, createdAt, body }) => {
   const date = showFormattedDate(createdAt)
   return (
     <div className="note__content--wrapper">
@@ -30,19 +28,19 @@ const NoteContent = ({title, createdAt, body}) => {
   )
 }
 
-const NoteButtonWrap = ({id, onDelete}) => {
+const NoteButtonWrap = ({ id, note, onDelete, onArchive }) => {
   return (
     <div className="note__button--wrapper">
       <DeleteButton id={id} onDelete={onDelete} />
-      <ArchieveButton />
+      <ArchieveButton note={note} onArchive={onArchive} />
     </div>
   )
 }
 
-const DeleteButton = ({id, onDelete}) => {
+const DeleteButton = ({ id, onDelete }) => {
   return <button onClick={() => onDelete(id)} className="note__button delete">Delete</button>
 }
 
-const ArchieveButton = () => {
-  return <button className="note__button archive">Archive</button>
+const ArchieveButton = ({ note, onArchive }) => {
+  return <button onClick={() => { onArchive(note) }} className="note__button archive">Archive</button>
 }

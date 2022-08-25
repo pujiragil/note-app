@@ -18,11 +18,13 @@ export const FormCreateButton = ({onToggle}) => {
 }
 
 export const FormBodyWrapper = ({notes}) => {
+  const unarchived = notes.filter(note => note.archived === false)
+  const archived = notes.filter(note => note.archived === true)
   return (
     <div className="form__body--wrapper">
-      <FormCount notes={0} text="Archive"/>
-      <FormCount notes={notes} text="Notes"/>
-      <FormCount notes={notes} text="Unarchive"/>
+      <FormCount notes={unarchived.length} text="Unarchive"/>
+      <FormCount notes={notes.length} text="Notes"/>
+      <FormCount notes={archived.length} text="Archive"/>
     </div>
   )
 }

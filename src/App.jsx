@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Form, Navbar, Note, FormModal } from "./components"
+import { Form, Navbar, Note, FormModal, Menu } from "./components"
 import { getInitialData } from "./utils"
 
 class App extends Component {
@@ -8,16 +8,19 @@ class App extends Component {
 
     this.state = {
       toggle: false,
+      menu: 'unarchive',
       notes: getInitialData(),
       title: '',
       body: '',
       message: null
     }
     this.setToggle = this.setToggle.bind(this)
+    this.setMenu = this.setMenu.bind(this)
     this.titleHandler = this.titleHandler.bind(this)
     this.bodyHandler = this.bodyHandler.bind(this)
     this.createNoteHandler = this.createNoteHandler.bind(this)
     this.deleteNoteHandler = this.deleteNoteHandler.bind(this)
+    this.archiveNoteHandler = this.archiveNoteHandler.bind(this)
   }
 
   setToggle() {
@@ -26,6 +29,12 @@ class App extends Component {
     ))
 
     this.state.message && this.setState({ message: null })
+  }
+
+  setMenu(menu) {
+    this.setState({
+      menu
+    })
   }
 
   titleHandler(e) {
@@ -66,13 +75,28 @@ class App extends Component {
     })
   }
   
+  archiveNoteHandler(note) {
+    const {notes} = this.state
+    const updatedNote = {
+      ...note,
+      archived: note.archived ? false : true
+    }
+    const noteIndex = notes.findIndex((current) => current.id === note.id)
+    
+    const updatedNotes = [...notes]
+    updatedNotes[noteIndex] = updatedNote
+
+    this.setState({ notes: updatedNotes })
+  } 
+
   render() {
     return (
       <div className="container">
         <Navbar />
-        <Form onToggle={this.setToggle} notes={this.state.notes.length}/>
+        <Form onToggle={this.setToggle} notes={this.state.notes}/>
         {this.state.toggle && <FormModal onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
-        <Note notes={this.state.notes} onDelete={this.deleteNoteHandler}/>
+        <Menu onMenu={this.setMenu}/>
+        <Note menu={this.state.menu} notes={this.state.notes} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler}/>
       </div>
     )
   }
