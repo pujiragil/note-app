@@ -1,11 +1,11 @@
 import "./Navbar.css"
 import { NavbarLogo, NavbarSearch } from "./NavbarElements"
 
-const Navbar = () => {
+const Navbar = ({onSearch}) => {
   return (
     <div className="navbar">
       <NavbarLogo>Manote</NavbarLogo>
-      <NavbarSearch/>
+      <NavbarSearch onSearch={onSearch}/>
     </div>
   )
 }

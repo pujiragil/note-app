@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       toggle: false,
       menu: 'unarchive',
+      search: null,
       notes: getInitialData(),
       title: '',
       body: '',
@@ -16,6 +17,7 @@ class App extends Component {
     }
     this.setToggle = this.setToggle.bind(this)
     this.setMenu = this.setMenu.bind(this)
+    this.setSearch = this.setSearch.bind(this)
     this.titleHandler = this.titleHandler.bind(this)
     this.bodyHandler = this.bodyHandler.bind(this)
     this.createNoteHandler = this.createNoteHandler.bind(this)
@@ -35,6 +37,10 @@ class App extends Component {
     this.setState({
       menu
     })
+  }
+
+  setSearch(search) {
+    this.setState({ search })
   }
 
   titleHandler(e) {
@@ -90,13 +96,14 @@ class App extends Component {
   } 
 
   render() {
+    const filtered = !this.state.search ? this.state.notes : this.state.notes.filter(note => note.title.toLocaleLowerCase().includes(this.state.search.toLocaleLowerCase()))
     return (
       <div className="container">
-        <Navbar />
+        <Navbar onSearch={this.setSearch}/>
         <Form onToggle={this.setToggle} notes={this.state.notes}/>
         {this.state.toggle && <FormModal onToggle={this.setToggle} titleHandler={this.titleHandler} bodyHandler={this.bodyHandler} createNoteHandler={this.createNoteHandler} message={this.state.message}/>}
         <Menu onMenu={this.setMenu}/>
-        <Note menu={this.state.menu} notes={this.state.notes} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler}/>
+        <Note menu={this.state.menu} notes={filtered} onDelete={this.deleteNoteHandler} onArchive={this.archiveNoteHandler}/>
       </div>
     )
   }

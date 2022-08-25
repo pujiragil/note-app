@@ -6,7 +6,7 @@ export const NavbarLogo = ({ children }) => {
   )
 }
 
-export const NavbarSearch = () => {
+export const NavbarSearch = ({onSearch}) => {
   const hideSearchIcon = (e) => {
     if(e.value.length === 0) return e.previousSibling.style.display = "block"
     return e.previousSibling.style.display = "none"
@@ -15,7 +15,13 @@ export const NavbarSearch = () => {
   return (
     <div className="nav__search">
       <AiOutlineSearch className="nav__search--icon"/>
-      <input type="text" onChange={(e) => hideSearchIcon(e.target)} className="nav__search--input" placeholder="find your note" />
+      <input type="text" 
+      onChange={(e) => {
+        hideSearchIcon(e.target)
+        onSearch(e.target.value)
+      }} 
+      className="nav__search--input" 
+      placeholder="find your note" />
     </div>
   )
 }
